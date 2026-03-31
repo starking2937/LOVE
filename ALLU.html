@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Allu ❤️ Chiku</title>
+
+    <!-- IMPORTANT FOR MOBILE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at top, #1a001a, #000000);
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            margin-top: 40px;
+            font-size: 32px;
+            color: #ff4d6d;
+            text-shadow: 0 0 15px #ff4d6d;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #text {
+            width: 90%;
+            margin: auto;
+            font-size: 18px;
+            margin-top: 30px;
+            min-height: 100px;
+            text-shadow: 0 0 8px #ff99aa;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 6px;
+            background: white;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0; }
+        }
+
+        button {
+            width: 80%;
+            max-width: 300px;
+            margin-top: 15px;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            background: #ff4d6d;
+            color: white;
+            box-shadow: 0 0 10px #ff4d6d;
+        }
+
+        #finalBtn, #choices {
+            display: none;
+        }
+
+        #choices button {
+            width: 60%;
+        }
+
+        /* Stars */
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Allu ❤️ Chiku</h1>
+
+    <div id="text"></div>
+
+    <button id="nextBtn" onclick="nextMessage()">Next 💌</button>
+    <button id="finalBtn" onclick="showChoices()">Final Message 💍</button>
+
+    <div id="choices">
+        <p style="margin-top:20px;">Will you stay with your Chiku forever? ❤️</p>
+        <button onclick="yesAnswer()">YES ❤️</button>
+        <button onclick="noAnswer()">NO 💔</button>
+    </div>
+
+    <script>
+        let messages = [
+            "Hey Allu... 💕",
+            "I know the last few days were heavy...",
+            "We have overthink and fight...",
+            "But losing you is something I can never handle...",
+            "You are my peace, my chaos, my everything...",
+            "No matter what happens...",
+            "I will always choose you ❤️"
+        ];
+
+        let i = 0;
+
+        function typeText(text, index = 0) {
+            let el = document.getElementById("text");
+
+            if (index < text.length) {
+                el.innerHTML = text.substring(0, index + 1) + '<span class="cursor"></span>';
+                setTimeout(() => typeText(text, index + 1), 40);
+            } else {
+                el.innerHTML = text;
+            }
+        }
+
+        window.onload = () => {
+            typeText(messages[i]);
+            i++;
+            createStars();
+        };
+
+        function nextMessage() {
+            if (i < messages.length) {
+                document.getElementById("text").innerHTML = "";
+                typeText(messages[i]);
+                i++;
+            } else {
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("finalBtn").style.display = "block";
+            }
+        }
+
+        function showChoices() {
+            document.getElementById("text").innerHTML = "";
+            typeText("Allu... will you stay with your Chiku forever? 💍❤️");
+            document.getElementById("choices").style.display = "block";
+            document.getElementById("finalBtn").style.display = "none";
+        }
+
+        function yesAnswer() {
+            document.getElementById("text").innerHTML = "";
+            typeText("You can trust me whole life... I will always be there for you ❤️");
+            document.getElementById("choices").style.display = "none";
+        }
+
+        function noAnswer() {
+            document.getElementById("text").innerHTML = "😔";
+            document.getElementById("choices").style.display = "none";
+        }
+
+        function createStars() {
+            for (let i = 0; i < 60; i++) {
+                let star = document.createElement("div");
+                star.classList.add("star");
+                star.style.top = Math.random() * 100 + "vh";
+                star.style.left = Math.random() * 100 + "vw";
+                star.style.animationDuration = (Math.random() * 2 + 1) + "s";
+                document.body.appendChild(star);
+            }
+        }
+    </script>
+
+</body>
+</html>
